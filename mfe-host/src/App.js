@@ -1,16 +1,20 @@
-import React, { Suspense } from "react";
+import { Container, Typography } from "@mui/material";
+import React from "react";
 
 const Dashboard = React.lazy(() => import("dashboard/App"));
 const List = React.lazy(() => import("list/App"));
 
 export default function App() {
   return (
-    <div>
-      <h1>Host App</h1>
-      <Suspense fallback="Loading...">
+    <Container>
+      <Typography variant="h4" style={{ margin: "20px 0" }}>
+        🚀 MFE Host Application
+      </Typography>
+
+      <React.Suspense fallback="Loading Micro Frontends...">
         <Dashboard />
         <List />
-      </Suspense>
-    </div>
+      </React.Suspense>
+    </Container>
   );
 }

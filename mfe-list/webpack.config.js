@@ -7,6 +7,7 @@ module.exports = {
 
   devServer: {
     port: 3002,
+    historyApiFallback: true,
   },
 
   output: {
@@ -16,28 +17,41 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
+        type: "javascript/auto", // ✅ CRITICAL FIX
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["@babel/preset-env", "@babel/preset-react"],
+            presets: [
+              ["@babel/preset-env", { targets: "defaults", modules: false }],
+              ["@babel/preset-react", { runtime: "automatic" }],
+            ],
           },
         },
       },
     ],
   },
 
+  resolve: {
+    extensions: [".js", ".jsx"],
+  },
+
   plugins: [
     new ModuleFederationPlugin({
       name: "list",
       filename: "remoteEntry.js",
+
       exposes: {
         "./App": "./src/App",
       },
+
       shared: {
-        react: { singleton: true, requiredVersion: false },
-        "react-dom": { singleton: true, requiredVersion: false },
+        react: { singleton: true },
+        "react-dom": { singleton: true },
+        "@mui/material": { singleton: true },
+        "@emotion/react": { singleton: true },
+        "@emotion/styled": { singleton: true },
       },
     }),
 

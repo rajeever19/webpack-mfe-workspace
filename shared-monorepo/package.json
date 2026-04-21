@@ -1,13 +1,13 @@
 {
   "name": "shared-monorepo",
-  "version": "1.0.0",
-  "main": "index.js",
+  "private": true,
+  "workspaces": ["packages/*"],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "lerna run start --parallel",
+    "build": "lerna run build",
+    "list": "lerna list"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "description": ""
+  "devDependencies": {
+    "lerna": "^8.2.4"
+  }
 }

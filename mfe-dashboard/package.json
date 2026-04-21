@@ -2,20 +2,12 @@
   "name": "mfe-dashboard",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "type": "commonjs",
-  "description": "",
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@mui/material": "^9.0.0",
-    "react": "^19.2.5",
-    "react-dom": "^19.2.5",
+    "@shared/core": "file:../shared-monorepo/packages/core/shared-core-1.0.0.tgz",
     "react-icons": "^5.6.0"
   },
   "devDependencies": {

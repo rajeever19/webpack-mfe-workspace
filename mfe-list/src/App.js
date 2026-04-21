@@ -1,19 +1,49 @@
-import { Card, CardContent, List, ListItem, Typography } from "@mui/material";
-import { FaList } from "react-icons/fa";
+import React from 'react';
+import { Card, CardContent, Typography, Box, List, ListItem, ListItemText, ListItemAvatar, Avatar, Chip, IconButton } from "@mui/material";
+import { FaTasks, FaFolderOpen, FaArrowRight } from "react-icons/fa";
 
 export default function App() {
-  return (
-    <Card style={{ margin: "20px", padding: "10px" }}>
-      <CardContent>
-        <Typography variant="h5">
-          <FaList style={{ marginRight: 10 }} />
-          List Micro Frontend
-        </Typography>
+  const engagements = [
+    { id: 1, client: "Citibank US", tech: "Cloud Migration", status: "On Track", color: "success" },
+    { id: 2, client: "FedEx Global", tech: "AI Optimization", status: "High Priority", color: "error" },
+    { id: 3, client: "Morgan Stanley", tech: "Digital Modernization", status: "In Progress", color: "primary" },
+  ];
 
-        <List>
-          <ListItem>Item 1</ListItem>
-          <ListItem>Item 2</ListItem>
-          <ListItem>Item 3</ListItem>
+  return (
+    <Card elevation={4} style={{ borderRadius: 12, overflow: 'hidden', border: '1px solid #e0e0e0' }}>
+        <Box style={{ backgroundColor: '#ECEFF1', padding: '20px 25px', display: 'flex', alignItems: 'center', borderBottom: '1px solid #CFD8DC' }}>
+            <FaTasks style={{ marginRight: 12, color: '#263238', fontSize: 26 }} />
+            <Typography variant="h5" style={{ color: '#263238', fontWeight: 700 }}>
+              Top Active Engagements
+            </Typography>
+        </Box>
+      <CardContent style={{ padding: 0 }}>
+        <List style={{ padding: 0 }}>
+          {engagements.map((eng, index) => (
+            <ListItem 
+                key={eng.id} 
+                divider={index < engagements.length - 1}
+                style={{ padding: '20px 25px', transition: 'background-color 0.2s', cursor: 'pointer' }}
+                onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#f9f9f9'}
+                onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                secondaryAction={
+                  <IconButton edge="end" color="primary">
+                    <FaArrowRight size={18} style={{ color: '#b71c1c' }} />
+                  </IconButton>
+                }
+            >
+              <ListItemAvatar style={{ marginRight: 15 }}>
+                <Avatar style={{ backgroundColor: '#b71c1c', width: 48, height: 48 }}>
+                  <FaFolderOpen size={22} />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText 
+                primary={<Typography variant="h6" style={{ fontWeight: 700, color: '#263238' }}>{eng.client}</Typography>}
+                secondary={<Typography variant="subtitle1" color="textSecondary" style={{ marginTop: 4, fontWeight: 500 }}>Engagement: {eng.tech}</Typography>}
+              />
+              <Chip label={eng.status} color={eng.color} size="small" style={{ fontWeight: 'bold', minWidth: 100, marginRight: 30 }} />
+            </ListItem>
+          ))}
         </List>
       </CardContent>
     </Card>

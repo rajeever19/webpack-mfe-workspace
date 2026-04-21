@@ -1,60 +1,86 @@
 #!/bin/bash
 
-echo "🚀 Starting all applications..."
+echo "🚀 Setting up Lerna Monorepo..."
 
-# Kill existing ports (optional but useful)
-echo "🧹 Cleaning ports..."
-kill_port() {
-  PORT=$1
-  PID=$(lsof -ti:$PORT)
-  if [ -n "$PID" ]; then
-    kill -9 $PID
-    echo "✅ Killed process on port $PORT"
-  fi
+# Step 1: Create shared monorepo
+mkdir shared-monorepo
+cd shared-monorepo
+
+npm init -y
+npm install lerna --save-dev
+
+npx lerna init
+
+# Step 2: Update lerna.json
+cat > lerna.json <<EOL
+{
+  "version": "independent",
+  "npmClient": "npm",
+  "useWorkspaces": true
 }
+EOL
 
-kill_port 3000
-kill_port 3001
-kill_port 3002
-kill_port 3005
+# Step 3: Update root package.json
+cat > package.json <<EOL
+{
+  "name": "shared-monorepo",
+  "private": true,
+  "workspaces": ["packages/*"],
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "build": "lerna run build",
+    "start": "lerna run start --parallel"
+  },
+  "devDependencies": {
+    "lerna": "^8.0.0"
+  }
+}
+EOL
 
-echo ""
-echo "📦 Starting Micro Frontends..."
+# Step 4: Create packages
+mkdir -p packages/core
+mkdir -p packages/ui
+mkdir -p packages/utils
+mkdir -p packages/config
 
-# Start Dashboard (3001)
-cd mfe-dashboard
-npx webpack serve &
-cd ..
+# Step 5: Core package
+cat > packages/core/package.json <<EOL
+{
+  "name": "@shared/core",
+  "version": "1.0.0",
+  "main": "index.js",
+  "peerDependencies": {
+    "react": "^18",
+    "react-dom": "^18"
+  }
+}
+EOL
 
-# Start List (3002)
-cd mfe-list
-npx webpack serve &
-cd ..
+# Step 6: UI package
+cat > packages/ui/package.json <<EOL
+{
+  "name": "@shared/ui",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "@mui/material": "^5.0.0"
+  }
+}
+EOL
 
-# Start Host (3000)
-cd mfe-host
-npx webpack serve &
-cd ..
+# Step 7: Utils package
+cat > packages/utils/package.json <<EOL
+{
+  "name": "@shared/utils",
+  "version": "1.0.0",
+  "main": "index.js"
+}
+EOL
 
-echo ""
-echo "📦 Starting Monolith App (3005)..."
+# Step 8: Install shared dependencies
+npm install react react-dom @mui/material @emotion/react @emotion/styled
 
-cd monolith-app
-npx webpack serve &
-cd ..
+# Step 9: Bootstrap
+npx lerna bootstrap
 
-echo ""
-echo "✅ All apps started!"
-
-echo ""
-echo "🌐 URLs:"
-echo "Host (MFE):        http://localhost:3000"
-echo "Dashboard (MFE):   http://localhost:3001"
-echo "List (MFE):        http://localhost:3002"
-echo "Monolith:          http://localhost:3005"
-
-echo ""
-echo "⚠️ Press CTRL+C to stop all apps"
-
-# Wait to keep script alive
-wait
+echo "✅ Monorepo setup complete!"

@@ -7,7 +7,8 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@mui/material": "^9.0.0",
-    "@shared/core": "file:../shared-monorepo/packages/core/shared-core-1.0.0.tgz",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
     "react-icons": "^5.6.0"
   },
   "devDependencies": {

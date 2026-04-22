@@ -40,7 +40,10 @@ module.exports = {
   plugins: [
     new ModuleFederationPlugin({
       name: "host",
-
+      filename: "remoteEntry.js",
+      exposes: {
+        "./store": "./src/store.js",
+      },
       remotes: {
         dashboard: "dashboard@http://localhost:3001/remoteEntry.js",
         list: "list@http://localhost:3002/remoteEntry.js",

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardContent, Typography, Box, List, ListItem, ListItemText, ListItemAvatar, Avatar, Chip, IconButton } from "@mui/material";
 import { FaTasks, FaFolderOpen, FaArrowRight } from "react-icons/fa";
+import { setGlobalState } from "host/store";
 
 export default function App() {
   const engagements = [
@@ -26,6 +27,7 @@ export default function App() {
                 style={{ padding: '20px 25px', transition: 'background-color 0.2s', cursor: 'pointer' }}
                 onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#f9f9f9'}
                 onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                onClick={() => setGlobalState({ selectedEngagement: eng.client, notifications: Math.floor(Math.random() * 5) + 1 })}
                 secondaryAction={
                   <IconButton edge="end" color="primary">
                     <FaArrowRight size={18} style={{ color: '#b71c1c' }} />

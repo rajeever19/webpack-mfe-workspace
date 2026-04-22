@@ -25,7 +25,10 @@ const mphasisTheme = createTheme({
 const Dashboard = React.lazy(() => import("dashboard/App"));
 const List = React.lazy(() => import("list/App"));
 
+import { useGlobalState } from "./store";
+
 export default function App() {
+  const { selectedEngagement, notifications } = useGlobalState();
   return (
     <ThemeProvider theme={mphasisTheme}>
       <CssBaseline />
@@ -39,11 +42,19 @@ export default function App() {
       </AppBar>
 
       <Container maxWidth="xl" style={{ marginTop: 40, marginBottom: 40 }}>
-        <Box mb={5}>
-          <Typography variant="h4">Delivery Manager Overview</Typography>
-          <Typography variant="subtitle1" color="textSecondary" style={{ marginTop: 8, fontSize: '1.1rem' }}>
-            Multi-Tenant Global Delivery & Engagement Dashboard
-          </Typography>
+        <Box mb={5} display="flex" justifyContent="space-between" alignItems="center">
+          <Box>
+            <Typography variant="h4">Delivery Manager Overview</Typography>
+            <Typography variant="subtitle1" color="textSecondary" style={{ marginTop: 8, fontSize: '1.1rem' }}>
+              Multi-Tenant Global Delivery & Engagement Dashboard
+            </Typography>
+          </Box>
+          {selectedEngagement && (
+            <Box style={{ backgroundColor: '#e8eaf6', padding: '10px 20px', borderRadius: 8, border: '1px solid #c5cae9' }}>
+               <Typography variant="subtitle2" color="primary" style={{ fontWeight: 700 }}>ACTIVE GLOBAL CONTEXT</Typography>
+               <Typography variant="h6" color="secondary" style={{ fontWeight: 800 }}>{selectedEngagement} <span style={{fontSize: 14}}>(+{notifications} alerts)</span></Typography>
+            </Box>
+          )}
         </Box>
 
         <React.Suspense fallback={<Typography style={{margin: 20}}>Loading Enterprise Modules...</Typography>}>

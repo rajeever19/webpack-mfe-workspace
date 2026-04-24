@@ -32,7 +32,6 @@ module.exports = {
       },
     ],
   },
-
   resolve: {
     extensions: [".jsx", ".js", ".json"],
   },
@@ -55,6 +54,7 @@ module.exports = {
         "@mui/material": { singleton: true },
         "@emotion/react": { singleton: true },
         "@emotion/styled": { singleton: true },
+        "@shared/store": { singleton: true },
       },
     }),
 

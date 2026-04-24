@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent, Typography, Box, List, ListItem, ListItemText, ListItemAvatar, Avatar, Chip, IconButton } from "@mui/material";
 import { FaTasks, FaFolderOpen, FaArrowRight } from "react-icons/fa";
-import { setGlobalState } from "host/store";
+import { setGlobalState } from "@shared/store";
 
 export default function App() {
   const engagements = [

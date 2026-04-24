@@ -1,0 +1,10 @@
+{
+  "name": "@shared/store",
+  "version": "1.0.0",
+  "main": "index.js",
+  "description": "Shared global state management for the MFE workspace",
+  "license": "ISC",
+  "peerDependencies": {
+    "react": ">=18"
+  }
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent, Typography, Grid, Box, LinearProgress, Chip } from "@mui/material";
 import { FaChartLine, FaServer, FaUsers, FaGlobe } from "react-icons/fa";
-import { useGlobalState } from "host/store";
+import { useGlobalState } from "@shared/store";
 
 export default function App() {
   const { selectedEngagement } = useGlobalState();

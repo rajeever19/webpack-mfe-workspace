@@ -19,7 +19,7 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        type: "javascript/auto", // ✅ CRITICAL FIX
+        type: "javascript/auto",
         use: {
           loader: "babel-loader",
           options: {
@@ -34,27 +34,24 @@ module.exports = {
   },
 
   resolve: {
-    extensions: [".js", ".jsx"],
+    extensions: [".jsx", ".js", ".json"],
   },
 
   plugins: [
     new ModuleFederationPlugin({
       name: "list",
       filename: "remoteEntry.js",
-      remotes: {
-        host: "host@http://localhost:3000/remoteEntry.js",
-      },
-
       exposes: {
         "./App": "./src/App",
       },
-
       shared: {
-        react: { singleton: true },
-        "react-dom": { singleton: true },
+        react: { singleton: true, requiredVersion: "^19.2.5" },
+        "react-dom": { singleton: true, requiredVersion: "^19.2.5" },
         "@mui/material": { singleton: true },
         "@emotion/react": { singleton: true },
         "@emotion/styled": { singleton: true },
+        // ✅ No more runtime dependency on host remote for the store
+        "@shared/store": { singleton: true },
       },
     }),
 

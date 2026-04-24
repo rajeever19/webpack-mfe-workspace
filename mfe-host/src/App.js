@@ -1,5 +1,5 @@
+import { AppBar, Box, Container, createTheme, CssBaseline, ThemeProvider, Toolbar, Typography } from "@mui/material";
 import React from "react";
-import { ThemeProvider, createTheme, CssBaseline, AppBar, Toolbar, Typography, Container, Box } from "@mui/material";
 import { FaBuilding } from "react-icons/fa";
 
 const mphasisTheme = createTheme({
@@ -25,7 +25,7 @@ const mphasisTheme = createTheme({
 const Dashboard = React.lazy(() => import("dashboard/App"));
 const List = React.lazy(() => import("list/App"));
 
-import { useGlobalState } from "./store";
+import { useGlobalState } from "@shared/store";
 
 export default function App() {
   const { selectedEngagement, notifications } = useGlobalState();
@@ -51,19 +51,19 @@ export default function App() {
           </Box>
           {selectedEngagement && (
             <Box style={{ backgroundColor: '#e8eaf6', padding: '10px 20px', borderRadius: 8, border: '1px solid #c5cae9' }}>
-               <Typography variant="subtitle2" color="primary" style={{ fontWeight: 700 }}>ACTIVE GLOBAL CONTEXT</Typography>
-               <Typography variant="h6" color="secondary" style={{ fontWeight: 800 }}>{selectedEngagement} <span style={{fontSize: 14}}>(+{notifications} alerts)</span></Typography>
+              <Typography variant="subtitle2" color="primary" style={{ fontWeight: 700 }}>ACTIVE GLOBAL CONTEXT</Typography>
+              <Typography variant="h6" color="secondary" style={{ fontWeight: 800 }}>{selectedEngagement} <span style={{ fontSize: 14 }}>(+{notifications} alerts)</span></Typography>
             </Box>
           )}
         </Box>
 
-        <React.Suspense fallback={<Typography style={{margin: 20}}>Loading Enterprise Modules...</Typography>}>
-            <Box mb={6}>
-               <Dashboard />
-            </Box>
-            <Box>
-               <List />
-            </Box>
+        <React.Suspense fallback={<Typography style={{ margin: 20 }}>Loading Enterprise Modules...</Typography>}>
+          <Box mb={6}>
+            <Dashboard />
+          </Box>
+          <Box>
+            <List />
+          </Box>
         </React.Suspense>
       </Container>
     </ThemeProvider>

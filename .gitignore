@@ -4,6 +4,10 @@
 node_modules/
 jspm_packages/
 
+# Monorepo workspace packages
+packages/*/node_modules/
+shared-monorepo/packages/*/node_modules/
+
 # ------------------------------
 # 🏗 Build Outputs
 # ------------------------------

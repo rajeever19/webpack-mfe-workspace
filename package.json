@@ -1,0 +1,22 @@
+{
+  "name": "webpack-mfe-workspace",
+  "private": true,
+  "workspaces": [
+    "mfe-host",
+    "mfe-dashboard",
+    "mfe-list",
+    "packages/*"
+  ],
+  "scripts": {
+    "start": "concurrently -n host,dashboard,list -c bgBlue.bold,bgGreen.bold,bgMagenta.bold \"npm run start --workspace=mfe-host\" \"npm run start --workspace=mfe-dashboard\" \"npm run start --workspace=mfe-list\"",
+    "start:host": "npm run start --workspace=mfe-host",
+    "start:dashboard": "npm run start --workspace=mfe-dashboard",
+    "start:list": "npm run start --workspace=mfe-list",
+    "build": "npm run build --workspaces --if-present",
+    "install:all": "npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0",
+    "lerna": "^8.2.4"
+  }
+}

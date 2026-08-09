@@ -50,6 +50,7 @@ module.exports = {
         "@mui/material": { singleton: true },
         "@emotion/react": { singleton: true },
         "@emotion/styled": { singleton: true },
+        "@shared/core": { singleton: true },
         // ✅ No more runtime dependency on host remote for the store
         "@shared/store": { singleton: true },
       },

@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, CardContent, Typography, Grid, Box, LinearProgress, Chip } from "@mui/material";
 import { FaChartLine, FaServer, FaUsers, FaGlobe } from "react-icons/fa";
 import { useGlobalState } from "@shared/store";
+import { core } from "@shared/core";
 
 export default function App() {
   const { selectedEngagement } = useGlobalState();
@@ -11,9 +12,10 @@ export default function App() {
       <Box style={{ backgroundColor: '#263238', padding: '20px 25px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <Box display="flex" alignItems="center">
           <FaChartLine style={{ marginRight: 15, color: '#fff', fontSize: 28 }} />
-          <Typography variant="h5" style={{ color: '#fff', fontWeight: 600 }}>
+          <Typography variant="h5" style={{ color: '#fff', fontWeight: 600, marginRight: 15 }}>
             Global Delivery Metrics
           </Typography>
+          <Chip label={`Powered by: ${core}`} size="small" style={{ backgroundColor: '#37474f', color: '#b0bec5', fontSize: '0.7rem' }} />
         </Box>
         {selectedEngagement && (
           <Chip label={`Filtering by: ${selectedEngagement}`} style={{ backgroundColor: '#b71c1c', color: '#fff', fontWeight: 600 }} />
